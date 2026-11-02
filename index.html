@@ -3,191 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Safety Trivia</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .quiz-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 100%;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-top: 0;
-        }
-        .progress {
-            text-align: right;
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-        .question {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #34495e;
-        }
-        .options-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .option-btn {
-            display: block;
-            width: 100%;
-            background-color: #ecf0f1;
-            border: 2px solid #bdc3c7;
-            border-radius: 6px;
-            padding: 12px 15px;
-            margin-bottom: 12px;
-            font-size: 1em;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .option-btn:hover:not([disabled]) {
-            background-color: #e2e7e9;
-            border-color: #7f8c8d;
-        }
-        .option-btn[disabled] {
-            cursor: not-allowed;
-        }
-        .correct {
-            background-color: #2ecc71 !important;
-            border-color: #27ae60 !important;
-            color: white;
-        }
-        .incorrect {
-            background-color: #e74c3c !important;
-            border-color: #c0392b !important;
-            color: white;
-        }
-        .feedback {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 6px;
-            background-color: #e8f4f8;
-            border-left: 5px solid #3498db;
-            display: none;
-        }
-        .next-btn {
-            display: block;
-            width: 100%;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-        }
-        .next-btn:hover {
-            background-color: #2980b9;
-        }
-        .results-container {
-            text-align: center;
-            display: none;
-        }
-        .score-display {
-            font-size: 2em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 20px 0;
-        }
-        .restart-btn {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 25px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .restart-btn:hover {
-            background-color: #27ae60;
-        }
-    </style>
+    <title>LAB QUIZ</title>
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>🔬 Lab Safety Trivia 🧪</h1>
+    <h1>LAB QUIZ</h1>
     
-    <div id="quiz-box">
-        <div class="progress" id="progress">Question 1 of 5</div>
-        <div class="question" id="question-text">Question text goes here?</div>
-        <div class="options-list" id="options-box"></div>
-        <div class="feedback" id="feedback-box"></div>
-        <button class="next-btn" id="next-button" onclick="nextQuestion()">Next Question</button>
-    </div>
-
-    <div class="results-container" id="results-box">
-        <h2>Quiz Complete!</h2>
-        <div class="score-display" id="score-text">0 / 5</div>
-        <p id="verdict-text">Verdict text goes here.</p>
-        <button class="restart-btn" onclick="restartQuiz()">Try Again</button>
-    </div>
-</div>
+    <div id="progress">Question 1 of 6</div>
+    <h3 id="question-text">Question text</h3>
+    
+    <div id="options-box"></div>
+    
+    <div id="feedback-box" style="margin-top: 20px; font-weight: bold;"></div>
+    
+    <button id="next-button" onclick="nextQuestion()" style="display: none; margin-top: 20px;">Next Question</button>
 
 <script>
     const questions = [
         {
-            question: "What type of footwear is strictly required when working in a science laboratory?",
-            options: ["Open-toe sandals", "Flip-flops", "Closed-toe shoes", "High heels"],
-            correct: 2,
-            explanation: "Closed-toe shoes cover your entire foot and protect you from chemical spills and sharp objects."
+            question: "What class is an oxidising material?",
+            options: ["Class A", "Class B", "Class C", "Class D"],
+            correct: 2
         },
         {
-            question: "Which piece of safety equipment should always be worn over your eyes during a lab experiment?",
-            options: ["Safety goggles", "Sunglasses", "Reading glasses", "A baseball cap"],
-            correct: 0,
-            explanation: "Safety goggles protect your eyes from chemical splashes, vapors, and flying debris."
+            question: "Does glass go into the regular recycling?",
+            options: ["Yes", "No"],
+            correct: 1
         },
         {
-            question: "Where should you properly dispose of broken glass in the laboratory?",
-            options: ["The regular classroom trash can", "The paper recycling bin", "The sink drain", "A designated sharps or broken glass container"],
-            correct: 3,
-            explanation: "Special rigid containers are designed specifically to hold sharp objects and broken glass safely."
+            question: "Should hair be tied up in the lab?",
+            options: ["Yes", "No"],
+            correct: 0
         },
         {
-            question: "What is the very first thing you should do if you spill a chemical on your skin?",
-            options: ["Ignore it and hope it dries quickly", "Notify your teacher/instructor immediately and rinse with plenty of water", "Wipe it off with your bare hands", "Run out of the laboratory building"],
-            correct: 1,
-            explanation: "Always alert your supervisor right away and flush the affected area with water using an eyewash or safety shower."
+            question: "How do you deal with broken glass?",
+            options: [
+                "Touch it with your bare hands and eat it.", 
+                "Call a teacher over and slowly scoop it up into the trash", 
+                "Do nothing."
+            ],
+            correct: 2
         },
         {
-            question: "Why is eating or drinking strictly prohibited inside a science laboratory?",
-            options: ["Food and drinks can become contaminated with invisible or dangerous chemicals", "It creates too much noise during class", "Teachers want to keep all the snacks for themselves", "It makes the desks sticky and messy"],
-            correct: 0,
-            explanation: "Hazardous substances in the air or on lab benches can easily contaminate your food and enter your body."
+            question: "What atomic number is cerium?",
+            options: ["34", "56", "58", "68"],
+            correct: 2
+        },
+        {
+            question: "When performing an experiment what do you do with the chairs?",
+            options: ["Stand up on them", "Sit down while performing it", "Push them in", "play tag with them🤑"],
+            correct: 2
         }
     ];
 
     let currentQuestionIndex = 0;
-    let score = 0;
 
-    const quizBox = document.getElementById('quiz-box');
-    const resultsBox = document.getElementById('results-box');
     const progressEl = document.getElementById('progress');
     const questionTextEl = document.getElementById('question-text');
     const optionsBoxEl = document.getElementById('options-box');
@@ -200,13 +70,14 @@
         progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
         questionTextEl.innerText = currentQuestion.question;
         optionsBoxEl.innerHTML = '';
-        feedbackBoxEl.style.display = 'none';
+        feedbackBoxEl.innerText = '';
         nextButtonEl.style.display = 'none';
 
         currentQuestion.options.forEach((option, index) => {
             const button = document.createElement('button');
             button.innerText = option;
-            button.classList.add('option-btn');
+            button.style.display = "block";
+            button.style.marginBottom = "5px";
             button.onclick = () => selectOption(index);
             optionsBoxEl.appendChild(button);
         });
@@ -214,25 +85,18 @@
 
     function selectOption(selectedIndex) {
         const currentQuestion = questions[currentQuestionIndex];
-        const buttons = optionsBoxEl.getElementsByClassName('option-btn');
+        const buttons = optionsBoxEl.getElementsByTagName('button');
 
-        // Disable all buttons so user can't change answer
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].disabled = true;
-            if (i === currentQuestion.correct) {
-                buttons[i].classList.add('correct');
-            }
         }
 
         if (selectedIndex === currentQuestion.correct) {
-            score++;
-            feedbackBoxEl.innerHTML = `<strong>✅ Correct!</strong><br>${currentQuestion.explanation}`;
+            feedbackBoxEl.innerText = "Correct!";
         } else {
-            buttons[selectedIndex].classList.add('incorrect');
-            feedbackBoxEl.innerHTML = `<strong>❌ Incorrect.</strong><br>${currentQuestion.explanation}`;
+            feedbackBoxEl.innerText = "Incorrect.";
         }
 
-        feedbackBoxEl.style.display = 'block';
         nextButtonEl.style.display = 'block';
     }
 
@@ -241,28 +105,11 @@
         if (currentQuestionIndex < questions.length) {
             loadQuestion();
         } else {
-            showResults();
+            currentQuestionIndex = 0;
+            loadQuestion();
         }
     }
 
-    function showResults() {
-        quizBox.style.display = 'none';
-        resultsBox.style.display = 'block';
-        
-        const scoreTextEl = document.getElementById('score-text');
-        const verdictTextEl = document.getElementById('verdict-text');
-        
-        scoreTextEl.innerText = `${score} / ${questions.length}`
-
-    function restartQuiz() {
-        currentQuestionIndex = 0;
-        score = 0;
-        quizBox.style.display = 'block';
-        resultsBox.style.display = 'none';
-        loadQuestion();
-    }
-
-    // Initialize the quiz
     loadQuestion();
 </script>
 
