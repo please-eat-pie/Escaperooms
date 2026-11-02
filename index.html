@@ -4,114 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAB QUIZ</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            margin: 20px; 
+            text-align: center; /* Centers the title and progress text */
+        }
+        h1 {
+            text-align: center;
+        }
+        /* Style to make option buttons bigger and full-width/easy to press */
+        .option-btn { 
+            display: block; 
+            width: 100%;
+            max-width: 400px; /* Limits width so it doesn't span the whole screen on desktop */
+            margin: 10px auto; /* Centers the button horizontally */
+            padding: 15px 20px; /* Extra padding makes the buttons bigger */
+            font-size: 1.1rem; /* Slightly larger text */
+            cursor: pointer; 
+        }
+        #next-button { 
+            margin: 20px auto; 
+            padding: 12px 24px;
+            font-weight: bold; 
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        #feedback-box { 
+            margin-top: 20px; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
 
     <h1>LAB QUIZ</h1>
-    
-    <div id="progress">Question 1 of 6</div>
-    <h3 id="question-text">Question text</h3>
-    
-    <div id="options-box"></div>
-    
-    <div id="feedback-box" style="margin-top: 20px; font-weight: bold;"></div>
-    
-    <button id="next-button" onclick="nextQuestion()" style="display: none; margin-top: 20px;">Next Question</button>
+    <div id="quiz-container">
+        <div id="progress">Question 1 of 6</div>
+        <h3 id="question-text">Question text</h3>
+        <div id="options-box"></div>
+        <div id="feedback-box"></div>
+        <button id="next-button" onclick="nextQuestion()" style="display: none;">Next Question</button>
+    </div>
 
 <script>
-    const questions = [
-        {
-            question: "What class is an oxidising material?",
-            options: ["Class A", "Class B", "Class C", "Class D"],
-            correct: 2
-        },
-        {
-            question: "Does glass go into the regular recycling?",
-            options: ["Yes", "No"],
-            correct: 1
-        },
-        {
-            question: "Should hair be tied up in the lab?",
-            options: ["Yes", "No"],
-            correct: 0
-        },
-        {
-            question: "How do you deal with broken glass?",
-            options: [
-                "Touch it with your bare hands and eat it.", 
-                "Call a teacher over and slowly scoop it up into the trash", 
-                "Do nothing."
-            ],
-            correct: 2
-        },
-        {
-            question: "What atomic number is cerium?",
-            options: ["34", "56", "58", "68"],
-            correct: 2
-        },
-        {
-            question: "When performing an experiment what do you do with the chairs?",
-            options: ["Stand up on them", "Sit down while performing it", "Push them in", "play tag with them🤑"],
-            correct: 2
-        }
-    ];
+const questions = [
+    { 
+        question: "What class is an oxidising material?", 
+        options: ["Class A", "Class B", "Class C", "Class D"], 
+        correct: 2 
+    },
+    { 
+        question: "Does glass go into the regular recycling?", 
+        options: ["Yes", "No"], 
+        correct: 1 
+    },
+    { 
+        question: "Should hair be tied up in the lab?", 
+        options: ["Yes", "No"], 
+        correct: 0 
+    },
+    { 
+        question: "How do you deal with broken glass?", 
+        options: [
+            "Touch it with your bare hands.", 
+            "Call a teacher over and safely dispose of it.", 
+            "Do nothing."
+        ], 
+        correct: 1 
+    },
+    { 
+        question: "What atomic number is cerium?", 
+        options: ["34", "56", "58", "68"], 
+        correct: 2 
+    },
+    { 
+        question: "When performing an experiment what do you do with the chairs?", 
+        options: ["Stand up on them", "Sit down while performing it", "Push them in", "Play tag with them"], 
+        correct: 2 
+    }
+];
 
-    let currentQuestionIndex = 0;
+let currentQuestionIndex = 0;
+let score = 0;
 
-    const progressEl = document.getElementById('progress');
-    const questionTextEl = document.getElementById('question-text');
-    const optionsBoxEl = document.getElementById('options-box');
-    const feedbackBoxEl = document.getElementById('feedback-box');
-    const nextButtonEl = document.getElementById('next-button');
+const progressEl = document.getElementById('progress');
+const questionTextEl = document.getElementById('question-text');
+const optionsBoxEl = document.getElementById('options-box');
+const feedbackBoxEl = document.getElementById('feedback-box');
+const nextButtonEl = document.getElementById('next-button');
 
-    function loadQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        
-        progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
-        questionTextEl.innerText = currentQuestion.question;
-        optionsBoxEl.innerHTML = '';
-        feedbackBoxEl.innerText = '';
-        nextButtonEl.style.display = 'none';
+function loadQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+    questionTextEl.innerText = currentQuestion.question;
+    optionsBoxEl.innerHTML = '';
+    feedbackBoxEl.innerText = '';
+    nextButtonEl.style.display = 'none';
 
-        currentQuestion.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.innerText = option;
-            button.style.display = "block";
-            button.style.marginBottom = "5px";
-            button.onclick = () => selectOption(index);
-            optionsBoxEl.appendChild(button);
-        });
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.innerText = option;
+        button.className = "option-btn"; // Applied the new big button styles
+        button.onclick = () => selectOption(index);
+        optionsBoxEl.appendChild(button);
+    });
+}
+
+function selectOption(selectedIndex) {
+    const currentQuestion = questions[currentQuestionIndex];
+    const buttons = optionsBoxEl.getElementsByTagName('button');
+    
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
     }
 
-    function selectOption(selectedIndex) {
-        const currentQuestion = questions[currentQuestionIndex];
-        const buttons = optionsBoxEl.getElementsByTagName('button');
-
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].disabled = true;
-        }
-
-        if (selectedIndex === currentQuestion.correct) {
-            feedbackBoxEl.innerText = "Correct!";
-        } else {
-            feedbackBoxEl.innerText = "Incorrect.";
-        }
-
-        nextButtonEl.style.display = 'block';
+    if (selectedIndex === currentQuestion.correct) {
+        feedbackBoxEl.innerText = "Correct! 🎉";
+        score++;
+    } else {
+        feedbackBoxEl.innerText = `Incorrect. The correct answer was: ${currentQuestion.options[currentQuestion.correct]}`;
     }
+    
+    nextButtonEl.style.display = 'block';
+}
 
-    function nextQuestion() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            loadQuestion();
-        } else {
-            currentQuestionIndex = 0;
-            loadQuestion();
-        }
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showResults();
     }
+}
 
+function showResults() {
+    progressEl.innerText = "Quiz Completed!";
+    questionTextEl.innerText = `You scored ${score} out of ${questions.length}`;
+    optionsBoxEl.innerHTML = '';
+    feedbackBoxEl.innerText = '';
+    
+    nextButtonEl.innerText = "Restart Quiz";
+    nextButtonEl.style.display = 'block';
+    nextButtonEl.onclick = restartQuiz;
+}
+
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButtonEl.innerText = "Next Question";
+    nextButtonEl.onclick = nextQuestion;
     loadQuestion();
-</script>
+}
 
+// Initialize quiz
+loadQuestion();
+</script>
 </body>
 </html>
