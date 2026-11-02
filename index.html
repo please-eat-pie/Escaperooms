@@ -35,6 +35,12 @@
             font-weight: bold; 
             font-size: 1.2rem;
         }
+        /* Large style for the final results screen score */
+        .final-score {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +102,9 @@ const feedbackBoxEl = document.getElementById('feedback-box');
 const nextButtonEl = document.getElementById('next-button');
 
 function loadQuestion() {
+    // Reset any styles modified during the results screen
+    questionTextEl.className = ''; 
+    
     const currentQuestion = questions[currentQuestionIndex];
     progressEl.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
     questionTextEl.innerText = currentQuestion.question;
@@ -106,7 +115,7 @@ function loadQuestion() {
     currentQuestion.options.forEach((option, index) => {
         const button = document.createElement('button');
         button.innerText = option;
-        button.className = "option-btn"; // Applied the new big button styles
+        button.className = "option-btn"; 
         button.onclick = () => selectOption(index);
         optionsBoxEl.appendChild(button);
     });
@@ -141,7 +150,11 @@ function nextQuestion() {
 
 function showResults() {
     progressEl.innerText = "Quiz Completed!";
-    questionTextEl.innerText = `You scored ${score} out of ${questions.length}`;
+    
+    // Inject the big score text layout
+    questionTextEl.className = "final-score";
+    questionTextEl.innerText = `${score} / ${questions.length}`;
+    
     optionsBoxEl.innerHTML = '';
     feedbackBoxEl.innerText = '';
     
