@@ -130,10 +130,10 @@ function selectOption(selectedIndex) {
     }
 
     if (selectedIndex === currentQuestion.correct) {
-        feedbackBoxEl.innerText = "Correct! 🎉";
+        feedbackBoxEl.innerText = "Correct";
         score++;
     } else {
-        feedbackBoxEl.innerText = `Incorrect. The correct answer was: ${currentQuestion.options[currentQuestion.correct]}`;
+        feedbackBoxEl.innerText = `The correct answer is: ${currentQuestion.options[currentQuestion.correct]}`;
     }
     
     nextButtonEl.style.display = 'block';
